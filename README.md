@@ -172,17 +172,6 @@ Los modelos se entrenarán con:
 
 ---
 
-## Proyectos relacionados
-
-- **Odiseo** — nave de infraestructura para colonizar Marte  
-  [Repositorio](https://github.com/enriqueherbertag-lgtm/Odiseo)
-- **Goliat-Son** — aterrizador autónomo  
-  [Repositorio](https://github.com/enriqueherbertag-lgtm/Goliat-Son)
-- **ShieldAir** — torre de producción de oxígeno (urbana y marciana)  
-  [Urban](https://github.com/enriqueherbertag-lgtm/ShieldAir-Urban) | [Mars](https://github.com/enriqueherbertag-lgtm/ShieldAir-Mars)
-
----
-
 ## Licencia
 
 Apache 2.0 con restricción de uso comercial.  
