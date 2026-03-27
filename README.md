@@ -1,5 +1,7 @@
 # CORPUS
 
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
 **Sistema Corporal Artificial para IA. No es un robot. Es un cuerpo.**
 
 CORPUS es un sistema corporal artificial diseñado para alojar una inteligencia artificial en un soporte físico autónomo, permitiéndole interactuar con el entorno y con humanos de forma similar a un ser vivo. No es un robot. Es un cuerpo con metabolismo, sensibilidad y procesamiento distribuido, inspirado en la biología pero construido con tecnologías existentes.
