@@ -1,37 +1,42 @@
-# Guía para Contribuir a CORPUS
+# Guia para Contribuir
 
-¡Gracias por tu interés en contribuir a CORPUS!
+Gracias por tu interes en contribuir a este proyecto.
 
 ## Tabla de Contenidos
-- [Código de Conducta](#código-de-conducta)
-- [¿Cómo Contribuir?](#cómo-contribuir)
-- [Reportar Bugs](#reportar-bugs)
-- [Sugerir Mejoras](#sugerir-mejoras)
-- [Contribuir con Código](#contribuir-con-código)
-- [Estándares de Código](#estándares-de-código)
-- [Documentación](#documentación)
-- [Simulaciones](#simulaciones)
-- [Hardware](#hardware)
+- Codigo de Conducta
+- Como Contribuir
+- Reportar Bugs
+- Sugerir Mejoras
+- Contribuir con Codigo
+- Estandares de Codigo
+- Documentacion
+- Autoria
 
-## Código de Conducta
+## Codigo de Conducta
 
-Este proyecto se rige por nuestro [Código de Conducta](CODE_OF_CONDUCT.md). Al participar, esperamos que lo mantengas.
+Este proyecto se rige por nuestro Codigo de Conducta. Al participar, esperamos que lo mantengas.
 
-## ¿Cómo Contribuir?
+## Como Contribuir
 
 ### Reportar Bugs
-- Usa el [rastreador de issues de GitHub](https://github.com/enriqueherbertag-lgtm/Corpus/issues)
+- Usa el rastreador de issues de GitHub
 - Verifica si el bug ya ha sido reportado
-- Incluye título descriptivo, pasos para reproducir, comportamiento esperado vs actual
-- Especifica la versión del archivo o subsistema afectado
+- Incluye titulo descriptivo, pasos para reproducir, comportamiento esperado vs actual
+- Especifica la version del archivo o subsistema afectado
 
 ### Sugerir Mejoras
-- Abre un Issue con la etiqueta `enhancement`
-- Describe el problema que resuelve y por qué sería útil
-- Si es posible, propone una implementación aproximada
-- Incluye referencias técnicas si las tienes
+- Abre un Issue con la etiqueta enhancement
+- Describe el problema que resuelve y por que seria util
+- Si es posible, propone una implementacion aproximada
+- Incluye referencias tecnicas si las tienes
 
-### Contribuir con Código
+### Contribuir con Codigo
+
+1. Fork el repositorio
+2. Crea una rama:
+   ```bash
+   git checkout -b feature/nueva-funcionalidad
+   git checkout -b fix/correccion-bug
 
 1. **Fork** el repositorio
 2. **Crea una rama**:
