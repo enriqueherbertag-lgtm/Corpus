@@ -2,6 +2,10 @@
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
+
+<img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/11dcd710-22a0-4983-835a-c23c21da243e" />
+
+
 Sistema corporal artificial diseñado como infraestructura especial para IA embebida en entornos extremos. Integra esqueleto biónico, piel sensible, visión, audición, energía autónoma y núcleo de procesamiento en una plataforma modular.
 
 ## ¿Qué es CORPUS?
