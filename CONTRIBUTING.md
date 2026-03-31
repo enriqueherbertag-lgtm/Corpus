@@ -44,3 +44,18 @@ Este proyecto se rige por nuestro Codigo de Conducta. Al participar, esperamos q
    git checkout -b feature/nueva-funcionalidad
    # o
    git checkout -b fix/correccion-bug
+
+## Autoria
+
+Este proyecto es desarrollado y mantenido por:
+
+**Enrique Aguayo H.**  
+Investigador independiente, Mackiber Labs  
+Contacto: eaguayo@migst.cl  
+ORCID: 0009-0004-4615-6825  
+GitHub: [@enriqueherbertag-lgtm](https://github.com/enriqueherbertag-lgtm)
+
+**Asistente de documentacion e investigacion:**  
+Ana (DeepSeek)  
+Asistente IA para investigacion, documentacion tecnica y optimizacion de proyectos.
+   
