@@ -38,8 +38,10 @@ Este proyecto toma la seguridad de sus implementaciones seriamente. Si crees que
 
 ## Contacto
 
-Para reportes de seguridad, utiliza el canal privado indicado en el repositorio.
+Para reportes de seguridad, contacta directamente a:
+**eaguayo@migst.cl**
 
+No se deben reportar vulnerabilidades en Issues públicos de GitHub.
 ---
 
 **Última actualización:** 2026-04-01
