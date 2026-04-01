@@ -1,7 +1,6 @@
 # CORPUS - Sistema Corporal Artificial para IA Embodied
 
-
-<img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/11dcd710-22a0-4983-835a-c23c21da243e" />
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19362083.svg)](https://doi.org/10.5281/zenodo.19362083)
 
 
 Sistema corporal artificial diseñado para alojar una inteligencia artificial o conectarse a un cerebro humano, permitiendo interactuar con el entorno de forma similar a un ser vivo. No es un robot. Es un cuerpo con metabolismo, sensibilidad y procesamiento distribuido, inspirado en la biología pero construido con tecnologías existentes.
