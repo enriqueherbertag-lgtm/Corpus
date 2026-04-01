@@ -1,49 +1,44 @@
-# Guia para Contribuir
+# Guía para Contribuir a CORPUS
 
-Gracias por tu interes en contribuir a este proyecto.
+¡Gracias por tu interés en contribuir a CORPUS!
 
 ## Tabla de Contenidos
-- Codigo de Conducta
-- Como Contribuir
-- Reportar Bugs
-- Sugerir Mejoras
-- Contribuir con Codigo
-- Estandares de Codigo
-- Documentacion
-- Autoria
+- [Código de Conducta](#código-de-conducta)
+- [¿Cómo Contribuir?](#cómo-contribuir)
+- [Reportar Bugs](#reportar-bugs)
+- [Sugerir Mejoras](#sugerir-mejoras)
+- [Contribuir con Código](#contribuir-con-código)
+- [Estándares de Código](#estándares-de-código)
+- [Documentación](#documentación)
+- [Simulaciones](#simulaciones)
+- [Hardware](#hardware)
 
-## Codigo de Conducta
+## Código de Conducta
 
-Este proyecto se rige por nuestro Codigo de Conducta. Al participar, esperamos que lo mantengas.
+Este proyecto se rige por nuestro [Código de Conducta](CODE_OF_CONDUCT.md). Al participar, esperamos que lo mantengas.
 
-## Como Contribuir
+## ¿Cómo Contribuir?
 
 ### Reportar Bugs
-- Usa el rastreador de issues de GitHub
+- Usa el [rastreador de issues de GitHub](https://github.com/enriqueherbertag-lgtm/Corpus/issues)
 - Verifica si el bug ya ha sido reportado
-- Incluye titulo descriptivo, pasos para reproducir, comportamiento esperado vs actual
-- Especifica la version del archivo o subsistema afectado
+- Incluye título descriptivo, pasos para reproducir, comportamiento esperado vs actual
+- Especifica la versión del archivo o subsistema afectado
 
 ### Sugerir Mejoras
-- Abre un Issue con la etiqueta enhancement
-- Describe el problema que resuelve y por que seria util
-- Si es posible, propone una implementacion aproximada
-- Incluye referencias tecnicas si las tienes
+- Abre un Issue con la etiqueta `enhancement`
+- Describe el problema que resuelve y por qué sería útil
+- Si es posible, propone una implementación aproximada
+- Incluye referencias técnicas si las tienes
 
-### Contribuir con Codigo
-
-1. Fork el repositorio
-2. Crea una rama:
-   ```bash
-   git checkout -b feature/nueva-funcionalidad
-   git checkout -b fix/correccion-bug
+### Contribuir con Código
 
 1. **Fork** el repositorio
 2. **Crea una rama**:
    ```bash
    git checkout -b feature/nueva-funcionalidad
-   # o
-   git checkout -b fix/correccion-bug
+   # o   git checkout -b fix/correccion-bug
+
 
 ## Autoria
 
@@ -55,7 +50,12 @@ Contacto: eaguayo@migst.cl
 ORCID: 0009-0004-4615-6825  
 GitHub: [@enriqueherbertag-lgtm](https://github.com/enriqueherbertag-lgtm)
 
+
+## Licencia
+
+Al contribuir, aceptas que tus contribuciones seran licenciadas bajo la misma licencia del proyecto.
+
+
 **Asistente de documentacion e investigacion:**  
 Ana (DeepSeek)  
 Asistente IA para investigacion, documentacion tecnica y optimizacion de proyectos.
-   
