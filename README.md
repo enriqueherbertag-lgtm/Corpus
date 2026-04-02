@@ -1,6 +1,8 @@
-# CORPUS - Sistema Corporal Artificial para IA Embodied
+## CORPUS - Sistema Corporal para IA
+
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19362083.svg)](https://doi.org/10.5281/zenodo.19362083)
+
 
 
 Sistema corporal artificial diseñado para alojar una inteligencia artificial o conectarse a un cerebro humano, permitiendo interactuar con el entorno de forma similar a un ser vivo. No es un robot. Es un cuerpo con metabolismo, sensibilidad y procesamiento distribuido, inspirado en la biología pero construido con tecnologías existentes.
@@ -88,6 +90,23 @@ CORPUS utiliza un sistema de refrigeración líquida cerrado, silencioso y distr
 - **Sistema operativo:** Linux RT + middleware ROS 2
 - **Integración con ENA:** comunicación bidireccional para recibir intención motora y enviar retroalimentación sensorial (tacto, presión, temperatura).
 
+### 8. Arquitectura de Redundancia
+
+CORPUS incorpora un sistema de triple núcleo para garantizar operación continua en entornos críticos:
+
+- **Núcleo principal**: procesamiento activo, toma de decisiones en tiempo real.
+- **Núcleo secundario**: respaldo espejo en espera de bajo consumo, sincronizado vía fibra óptica.
+- **Núcleo terciario**: almacenamiento frío con snapshots periódicos para restauración.
+
+**Detección de anomalías:**
+- Heartbeat cada 100 ms
+- Verificación de integridad de memoria
+- Monitoreo de temperatura, voltaje y radiación
+
+**Conmutación:** <10 ms ante fallo del núcleo principal, sin pérdida de información ni interrupción perceptible.
+
+Ver [docs/redundancy-architecture.md](docs/redundancy-architecture.md) para especificaciones completas.
+
 ## Integración con ENA
 
 CORPUS está diseñado para funcionar con ENA, la interfaz cerebro-máquina no invasiva. En configuración humana:
@@ -141,6 +160,7 @@ Cada subsistema opera autónomamente en lo local, reportando al núcleo solo cam
 | Sistema de refrigeración circulatorio | Definido |
 | Subsistemas con reporte al núcleo | Definido |
 | Integración con ENA | Definida (conceptual) |
+| Arquitectura de redundancia (triple núcleo) | Definida |
 | Procesamiento distribuido | Pendiente |
 | Movilidad | Pendiente |
 | Núcleo central | Pendiente |
@@ -153,7 +173,6 @@ Cada subsistema opera autónomamente en lo local, reportando al núcleo solo cam
 3. Definición del modelo de prioridades del núcleo.
 4. Simulación de flujo energético y térmico en distintos entornos.
 5. Integración con proyectos existentes (ENA, Memoria Fija, etc.).
-
 
 ## Licencia
 
@@ -177,7 +196,6 @@ Cualquier uso fuera de los términos permitidos requiere permiso previo del auto
 
 Las consultas comerciales son bienvenidas y se responderán en un plazo máximo de 7 días hábiles.
 
-
 ## Autor
 
 **Enrique Aguayo H.**  
@@ -187,3 +205,4 @@ ORCID: 0009-0004-4615-6825
 GitHub: [@enriqueherbertag-lgtm](https://github.com/enriqueherbertag-lgtm)
 
 Documentación asistida por **Ana (DeepSeek)** , IA para investigación y optimización técnica.
+
