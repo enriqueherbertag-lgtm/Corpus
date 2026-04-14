@@ -3,7 +3,14 @@
 **Última actualización:** 14 de abril de 2026  
 **Versión del concepto:** v1.2.0 (mejoras documentadas, no implementadas)
 
-Este documento recoge las mejoras y especificaciones técnicas añadidas al diseño original de CORPUS. No es un manual de construcción. Es una declaración de intenciones y una guía para futuros desarrollos.
+## Contenido
+
+- [Mejora 1: Integración de sensores y actuadores piezoeléctricos](#mejora-1-integracion-de-sensores-y-actuadores-piezoelectricos)
+- [Mejora 2: Conectividad entre módulos mediante fibra óptica](#mejora-2-conectividad-entre-modulos-mediante-fibra-optica)
+- [Mejora 3: Transmisión de energía y datos en articulaciones (sin contacto)](#mejora-3-transmision-de-energia-y-datos-en-articulaciones-sin-contacto)
+- [Mejora 4: Articulaciones como motores de accionamiento directo](#mejora-4-articulaciones-como-motores-de-accionamiento-directo)
+- [Mejora 5: Sensores de posición para articulaciones](#mejora-5-sensores-de-posicion-para-articulaciones)
+- [Resumen del impacto de las mejoras](#resumen-del-impacto-de-las-mejoras)
 
 ---
 
@@ -23,10 +30,10 @@ Se ha añadido al diseño de CORPUS una capa de sensado y actuación mediante pi
 
 | Componente | Modelo de referencia | Función | Costo unitario |
 |------------|----------------------|---------|----------------|
-| Sensor piezoeléctrico tipo bender | Murata 7BB-20-6 | Detección de vibraciones (10-300 Hz) | 1.50 USD |
+| Sensor piezoeléctrico tipo bender | Murata 7BB-27-4 (o TDK PS1240P02BT) | Detección de vibraciones (10-300 Hz) | 1.50 USD |
 | Actuador piezoeléctrico de anillo | Noliac NAC2122 | Vibración háptica localizada (50-200 Hz) | 8.00 USD |
 | Multiplexor analógico | ADG732 (Analog Devices) | Leer múltiples sensores con un solo ADC | 12.00 USD |
-| Driver de alto voltaje | MPIA (PiezoDrive) | Controlar actuadores (0-150V) | 25.00 USD |
+| Driver de alto voltaje | Driver genérico (ej. PiezoDrive PDX150) | Controlar actuadores (0-150V) | 25.00 USD |
 
 **Total estimado para una mano:** 4 actuadores + 8 sensores + multiplexor + driver ≈ 50 USD.
 
@@ -55,8 +62,8 @@ CORPUS es un sistema distribuido. El cableado de cobre tradicional presenta prob
 
 ### Topología propuesta
 
-- **Backbone principal:** Fibra óptica multimodo (50/125 µm) que recorre la columna vertebral de CORPUS. Cada extremidad se conecta al backbone mediante un nodo de comunicación.
-- **Nodos de comunicación:** Por cada módulo (brazo, pierna, torso), un convertidor de medios (cobre a fibra) basado en transceptores SFP (costo por nodo ≈ 15-20 USD). El nodo también aloja un microcontrolador (STM32) para gestionar el tráfico local.
+- **Backbone principal:** Fibra óptica monomodo (9/125 µm) que recorre la columna vertebral de CORPUS. Cada extremidad se conecta al backbone mediante un nodo de comunicación.
+- **Nodos de comunicación:** Por cada módulo (brazo, pierna, torso), un convertidor de medios (cobre a fibra) basado en transceptores SFP. El nodo también aloja un microcontrolador (STM32) para gestionar el tráfico local.
 - **Comunicación dentro del módulo (tramo final):** Cableado de cobre flexible (I2C, SPI, o Ethernet de cobre). La fibra no llega a las articulaciones porque es frágil en zonas de flexión continua. Se detiene en el nodo, situado en la base del módulo (hombro, cadera).
 
 ### Optimización con módulos BiDi (WDM)
@@ -68,11 +75,11 @@ Para reducir el número de hilos de fibra necesarios, se emplearán transceptore
 | Componente | Modelo de referencia | Costo unitario |
 |------------|----------------------|----------------|
 | Fibra óptica monomodo (9/125 µm) | Corning SMF-28 Ultra | 0.30 USD/m |
-| Transceptor SFP BiDi (1000BASE-BX) | TP-Link TL-SM311LS | 25 USD |
+| Transceptor SFP BiDi (1000BASE-BX) | TP-Link TL-SM311LS (o equivalente industrial, ej. Finisar FTLF1318P3BTL) | 25-50 USD |
 | Convertidor de medios (cobre a fibra) industrial | Lantech IMC-350I-SFP | 45 USD |
 | Microcontrolador nodo | STM32F405 | 10 USD |
 
-**Costo estimado para CORPUS completo:** 1 backbone + 6 nodos ≈ 500 USD.
+**Costo estimado para CORPUS completo:** 1 backbone (fibra) + 6 nodos (brazos, piernas, cabeza, torso) ≈ 500 USD.
 
 ### Estado
 
@@ -197,6 +204,22 @@ Disco metálico estampado con dientes (ej. 60-2 para 6° de resolución). Se mec
 - [x] Distribución por articulación definida.
 - [ ] Prototipo de articulación con AS5715R y bobinas PCB (pendiente).
 - [ ] Prototipo de dedo con TLE5012B y PCB flexible (pendiente).
+
+---
+
+## Resumen del impacto de las mejoras
+
+La aplicación de estas cinco mejoras transforma CORPUS de un concepto de robot humanoide a un sistema corporal artificial con atributos diferenciales:
+
+| Mejora | Impacto en CORPUS |
+|--------|-------------------|
+| **Piezoeléctricos** | Añade sensibilidad táctil dinámica (vibraciones, texturas) y retroalimentación háptica para el operador humano (ENA). |
+| **Fibra óptica BiDi** | Reduce el peso y la interferencia electromagnética en el backbone de comunicaciones. Aumenta el ancho de banda y la fiabilidad. |
+| **Transmisión sin contacto** | Elimina anillos colectores (desgaste, mercurio). Permite giros continuos en hombros y caderas sin límite mecánico. |
+| **Motores de accionamiento directo** | Elimina backlash, reduce el ruido y el mantenimiento. Mayor precisión y silencio en el movimiento. |
+| **Sensores inductivos/GMR/AMR** | Proporciona posición absoluta y velocidad en cada articulación, con precisión subgrado, sin contacto y con certificación ISO 26262 para seguridad funcional. |
+
+**Efecto neto:** CORPUS será más ligero (menos cobre, sin anillos colectores), más rápido (menor latencia en comunicaciones), más sensible (vibraciones, háptica), más seguro (certificaciones ISO 26262), y más fácil de mantener (sin escobillas, sin engranajes, sin mercurio).
 
 ---
 
