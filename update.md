@@ -1,69 +1,113 @@
-# Update: Integración de sensores y actuadores piezoeléctricos en CORPUS
+## Mejora 5: Sensores de posición para articulaciones (rueda fónica + Hall)
 
-**Fecha:** 14 de abril de 2026  
-**Versión del concepto:** v1.1.0 (mejora documentada, no implementada)
+**Fecha:** 14 de abril de 2026
+**Estado:** Especificación conceptual. Sin implementación.
 
-## Resumen
+### Componentes seleccionados
 
-Se ha añadido al diseño de CORPUS una capa de sensado y actuación mediante piezoeléctricos. No es una piel sensible de alta resolución. Es un complemento de bajo costo (estimado 50 USD por mano) que permite:
+**Sensor inductivo de alta velocidad (para articulaciones principales): AS5715R de ams AG**
 
-- Detectar vibraciones mecánicas (golpes, zumbidos, texturas gruesas).
-- Generar retroalimentación háptica básica (vibraciones de 50-200 Hz) para el operador humano a través de ENA.
-- Proveer micro-vibraciones de referencia para mejorar la estabilidad de las articulaciones (sin reemplazar los sistemas de control existentes).
+- **Número de producto:** AS5715R-ZTST (TSSOP-14) o AS5715R-ZTSM (SOIC-8)
+- **Código de pedido:** 507920024 / 507920025
+- **Certificación:** AEC-Q100 Grade 0 (automotive, -40°C a 160°C) [citation:1]
+- **Seguridad funcional:** ISO 26262 ASIL C(D) como Safety Element out of Context (SEooC) [citation:1][citation:3][citation:7]
+- **Compatibilidad RoHS y HF** [citation:1]
+- **Precisión típica:** <0.075 grados mecánicos con configuración de 4 pares de polos [citation:1][citation:7]
+- **Rango de temperatura:** -40°C a 160°C
+- **Tecnología:** Inductiva (sin contacto, inmune a campos magnéticos externos)
+- **Salida:** SIN/COS diferencial (para cálculo atan2) [citation:1][citation:7]
+- **Aplicación:** On/off axis, adaptable a diseño de bobinas personalizado [citation:1][citation:7]
+- **Seguridad:** Diagnósticos integrados, watchdog, detección de subtensión/sobretensión, detección de circuito abierto en bobinas [citation:9]
 
-## Motivación
+**Sensor GMR de alta precisión (versión compacta para dedos): TLE5012B E5000 de Infineon**
 
-Los robots actuales (incluyendo CORPUS en su versión inicial) no tienen capacidad de sentir vibraciones ni de comunicar información táctil al operador. Los sensores táctiles resistivos detectan presión, pero no vibraciones de alta frecuencia. Los piezoeléctricos son baratos, robustos y fáciles de integrar. Añaden una dimensión sensorial nueva sin complejidad excesiva.
+- **Número de producto:** TLE5012B E5000
+- **Caso:** PG-DSO-8 (5x6 mm)
+- **Certificación:** Safety Integrity Level (SIL) según IEC61508 y ISO 26262 [citation:2]
+- **Características de seguridad:** PRO-SIL™ (Infineon), test vectors, CRC para comunicación, BIST (Built-in Self-test) [citation:2]
+- **Interfaces:** SSC (tres hilos), PWM, Incremental Interface, Hall Switch Mode, Short PWM Code [citation:2]
+- **Comunicación:** Bidireccional, 8-bit CRC para SSC, 4-bit CRC para SPC [citation:2]
+- **Tecnología:** GMR (Giant Magneto-Resistive)
+- **Resolución:** 0.01 grados
+- **NOTA:** El TLE5012B E1000 tiene funcionalidad de seguridad ISO 26262, pero NO está declarado ASIL Ready por Infineon [citation:5][citation:8]. Se debe evaluar en sistema para determinar el nivel ASIL alcanzable.
 
-## Componentes propuestos (comerciales, no inventados)
+**Alternativa AMR de alta precisión (para dedos, más precisa que Hall): KMZ80 de NXP**
 
-| Componente | Modelo de referencia | Función | Costo unitario |
-|------------|----------------------|---------|----------------|
-| Sensor piezoeléctrico tipo bender | Murata 7BB-20-6 | Detección de vibraciones (10-300 Hz) | 1.50 USD |
-| Actuador piezoeléctrico de anillo | Noliac NAC2122 | Vibración háptica localizada (50-200 Hz) | 8.00 USD |
-| Multiplexor analógico | ADG732 (Analog Devices) | Leer múltiples sensores con un solo ADC | 12.00 USD |
-| Driver de alto voltaje | MPIA (PiezoDrive) | Controlar actuadores (0-150V) | 25.00 USD |
+- **Número de producto:** KMZ80
+- **Caso:** SOIC-8 (5x6 mm)
+- **Certificación:** AEC-Q100, ISO 26262 [citation:10]
+- **Nivel ASIL:** Hasta ASIL B (salida analógica) o ASIL C (salida SENT) [citation:10]
+- **Tecnología:** AMR (Anisotropic Magneto-Resistive)
+- **Salidas:** SAE J2716 SENT y analógica
+- **Calibración:** Multpunto (17 puntos equidistantes o 7 seleccionables), almacenamiento en NVM [citation:10]
+- **Memoria:** 8×12 bits para trazabilidad del cliente [citation:10]
+- **Robustez:** Campo magnético de trabajo >25 kA/m, sin límite superior [citation:10]
+- **Estado:** Producto no recomendado para nuevos diseños (NRND) [citation:10]. Para CORPUS (concepto, no producción), es válido. Para producción, seleccionar alternativa actual.
 
-**Total estimado para una mano (4 dedos + palma):** 4 actuadores + 8 sensores + multiplexor + driver ≈ 50 USD.
+### Rueda fónica
 
-## Integración prevista
+**Descripción:** Disco metálico estampado con dientes (ej. 60-2 para 6° de resolución, o 36-1 para 10°). Se mecaniza en el propio rotor de la articulación o se añade como un disco independiente de 2-3 mm de espesor.
 
-- Los piezoeléctricos se colocan en las yemas de los dedos (sensores y actuadores) y en la palma (solo actuadores).
-- Se conectan a un multiplexor analógico (para los sensores) y a un driver de alto voltaje (para los actuadores).
-- El microcontrolador principal (triple núcleo redundante) leerá los sensores a 1 kHz y generará señales PWM para los actuadores.
+**Material:** Acero magnético (para sensores Hall) o acero inoxidable (para sensores inductivos AMS AS5715R, que no requieren dientes magnéticos, solo conductores). Para el AS5715R, la rueda fónica puede ser de aluminio o cobre (el sensor es inductivo, detecta metales conductores, no imanes) [citation:1].
 
-## Impacto en el diseño actual
+**Diseño del sistema de bobinas para AS5715R:** El AS5715R requiere un sistema de bobinas personalizado (TX y dos RX) integrado en un PCB. El objetivo (target) puede ser una rueda fónica conductora (aluminio, cobre) o un estampado metálico. La ventaja de este sensor es que NO necesita imanes, solo un objetivo conductor [citation:1][citation:7].
 
-- **Piel sensible:** No se reemplaza. Se complementa. Los sensores táctiles resistivos siguen midiendo presión estática y fuerza. Los piezoeléctricos miden vibración dinámica.
-- **Refrigeración:** No afecta. Los piezoeléctricos disipan menos de 0.1 W cada uno.
-- **Energía:** El consumo adicional es mínimo (< 2 W para una mano completa).
-- **Software:** Se añadirá un módulo `piezo_control.py` en el repositorio (pendiente).
+### Distribución por articulación
 
-## Estado actual
+**Articulaciones principales (hombro, codo, cadera, rodilla):**
+- **Sensor inductivo AS5715R** + sistema de bobinas PCB + rueda fónica conductora
+- Proporciona velocidad y posición absoluta (no incremental, el AS5715R es absoluto)
+- Resolución <0.075 grados
+- Sin contacto, sin desgaste
+- Seguridad ISO 26262 ASIL C(D) como SEooC
 
-- [x] Concepto definido.
-- [x] Componentes identificados.
-- [x] Costo estimado.
-- [ ] Prototipo de un dedo con sensores y actuadores (pendiente).
-- [ ] Pruebas de sensibilidad y rango de frecuencia (pendiente).
-- [ ] Integración con el firmware existente (pendiente).
+**Articulaciones secundarias (muñeca, tobillo, cuello):**
+- **Sensor GMR TLE5012B** + imán dipolo (2x2 mm)
+- Rango ±180°
+- Tamaño reducido (5x6 mm)
+- Funcionalidad de seguridad ISO 26262 (sin ASIL declarado)
+- O **Sensor AMR KMZ80** (hasta ASIL C, NRND)
 
-## Próximos pasos (si se dispusiera de recursos)
+**Articulaciones de dedos (ultraminiatura):**
+- **Sensor GMR TLE5012B** en encapsulado TDSO-8 o **KMZ80** en SOIC-8
+- Imán dipolo de 2x2x1 mm (neodimio N52)
+- Montaje en PCB flexible de 0.2 mm
+- Cableado con hilo de cobre esmaltado de 0.1 mm
+- Tamaño total <5x5x2 mm por articulación
+- Resolución de 0.01 grados (TLE5012B)
 
-1. Adquirir un juego de componentes (≈ 200 USD para una mano completa).
-2. Imprimir en 3D un dedo de prueba con alojamientos para los piezoeléctricos.
-3. Conectar a un Arduino (para pruebas iniciales) y medir la respuesta real.
-4. Ajustar el diseño y documentar los resultados.
+### Integración en CORPUS
 
-## Nota para el lector
+Cada articulación tendrá su propio subsistema de sensado. Los datos se procesan localmente (STM32 en cada nodo de extremidad) y se transmiten por fibra óptica (con módulos BiDi) al núcleo principal.
 
-Este documento es una **declaración de intenciones**. No hay prototipo funcional. Los componentes seleccionados son sugerencias, no órdenes de compra. La integración completa en CORPUS requerirá pruebas adicionales y posiblemente cambios de diseño. Sin embargo, la viabilidad técnica es alta porque los piezoeléctricos son componentes maduros y ampliamente utilizados (encendedores, sensores de aparcamiento, altavoces piezoeléctricos).
+**Conexión del AS5715R:**
+- El chip se monta en un pequeño PCB rígido (10x10 mm) en la parte fija de la articulación.
+- El sistema de bobinas (TX y dos RX) se integra en el mismo PCB.
+- La rueda fónica conductora se fija al rotor (pasador) de la articulación, enfrentada a las bobinas a 0.5-1 mm.
+- El chip se alimenta a 5V (o 3.3V) y proporciona salida SIN/COS diferencial.
+- Un microcontrolador local (STM32F405) aplica la función atan2 para calcular el ángulo absoluto.
 
-## Autor
+**Conexión del TLE5012B / KMZ80:**
+- Se monta en un PCB flexible o rígido-pequeño.
+- El imán se fija en el extremo del eje.
+- La comunicación es por SPI (o SENT para KMZ80).
+- La alimentación es de 3.3V o 5V.
 
-Enrique Aguayo H. – Mackiber Labs  
-Asistencia de DeepSeek (IA) en la redacción y estructura.
+### Estado
 
-## Licencia
+- [x] Componentes identificados con códigos de producto.
+- [x] Certificaciones ISO 26262 verificadas.
+- [x] Distribución por articulación definida.
+- [ ] Prototipo de una articulación con AS5715R y bobinas PCB (pendiente).
+- [ ] Prototipo de un dedo con TLE5012B y PCB flexible (pendiente).
+- [ ] Pruebas de precisión y repetibilidad.
+- [ ] Pruebas de temperatura y vibración.
 
-Copyright © 2026 Enrique Aguayo. Todos los derechos reservados. Este documento se comparte con fines de documentación del proyecto. No se permite su uso comercial sin autorización expresa.
+### Referencias
+
+- AS5715R Datasheet (ams AG): AEC-Q100 Grade 0, ISO 26262 ASIL C(D) SEooC [citation:1][citation:3][citation:7]
+- AS5715R Safety Manual (disponible bajo solicitud) [citation:3]
+- TLE5012B User Manual: ISO 26262 SIL, PRO-SIL™, BIST, CRC [citation:2]
+- TLE5012B Functional Safety: ISO 26262 compliant, no ASIL declared [citation:5][citation:8]
+- KMZ80 Datasheet: AEC-Q100, ISO 26262 ASIL B/C, AMR technology [citation:10]
+- MagnTek MT6620: Alternativa de off-axis con ASIL B(D) [citation:4]
