@@ -1,8 +1,10 @@
 # CORPUS: An artificial body for AI or human brain
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19362083.svg)](https://doi.org/10.5281/zenodo.19362083)
-[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
-[![ES](https://img.shields.io/badge/Spanish-version-green.svg)](./README.md)
+[![License](https://img.shields.io/badge/License-Copyright%20%28c%29%202026%20Enrique%20Aguayo-red)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Hypothesis%20under%20development-yellow)](https://github.com/enriqueherbertag-lgtm/Corpus)
+[![Update](https://img.shields.io/badge/Update-Piezoelectric_Integration-blue)](./update.md)
+[![Spanish](https://img.shields.io/badge/Spanish-README.md-blue)](./README.md)
+[![AI Assistance](https://img.shields.io/badge/AI%20Assistance-DeepSeek-brightgreen)](https://deepseek.com)
 
 Current robots are machines designed for specific tasks. They are not made to coexist with humans, nor to adapt to extreme environments, nor to naturally host an artificial intelligence.
 
