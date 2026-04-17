@@ -1,7 +1,7 @@
 # Capa de Autonomía de CORPUS (Sistema de Control de Bajo Nivel)
 
 **También denominado:** "Inconsciente" o "Sistema de Reflejos y Homeostasis".  
-**Versión del documento:** 1.0.0  
+**Versión del documento:** 1.1.0  
 **Última actualización:** 16 de abril de 2026  
 **Autor:** Enrique Aguayo H. (Mackiber Labs)  
 **Asistencia técnica:** DeepSeek (IA)
@@ -41,9 +41,12 @@ Definir la arquitectura de control autónomo de bajo nivel de CORPUS. Esta capa 
 | I2C / SPI | Lectura de sensores (IMU, temperatura, batería). | 400 kHz / 10 MHz |
 | GPIO (discreto) | Señales de emergencia (ej. "caída detectada", "batería crítica"). | Inmediato (interrupción). |
 
-### 2.3 Refrigeración y energía
+### 2.3 Refrigeración y energía (aclaración térmica)
 
-- **Control de temperatura:** El microcontrolador lee los sensores de temperatura. Si una articulación supera los 80°C, activa la bomba de refrigeración líquida. Si supera los 100°C, reduce la potencia de los motores (modo seguro).
+**CARACTERÍSTICA CLAVE DEL DISEÑO:** Las articulaciones SmartJoint operan en **movimiento oscilante acotado** (típicamente 40°-180°), no en rotación continua. Por lo tanto, los picos de potencia (50W por articulación) son de muy corta duración (<5 segundos). En movimiento normal, la potencia media es de 5-15W por articulación.
+
+- **Control de temperatura:** El microcontrolador lee los sensores de temperatura. Si una articulación supera los **70°C**, activa la bomba de refrigeración líquida (solo en las articulaciones que tengan este sistema opcional). Si supera los **85°C**, reduce la potencia de los motores (modo seguro). Si supera los **100°C** (fallo crítico), apaga la articulación.
+- **Sistema central de refrigeración:** Capacidad sostenida de **80-120W continuos**. Suficiente para la disipación térmica media de todo CORPUS en actividad normal, gracias al movimiento oscilante y a la inercia térmica de las articulaciones.
 - **Gestión de energía:** Si la batería principal cae por debajo del 15%, el sistema conmuta a la batería secundaria y activa una baliza de "batería baja". Si la batería secundaria también cae, entra en modo de ahorro extremo (solo sensores de emergencia y baliza LoRa).
 
 ---
@@ -55,7 +58,7 @@ Los reflejos se ejecutan en el microcontrolador local de cada articulación o en
 | Reflejo | Sensor | Acción | Tiempo máximo de respuesta |
 |---------|--------|--------|----------------------------|
 | **Protección de caída** | IMU (acelerómetro, giroscopio) | Detección de aceleración anómala (caída). Se activa el protocolo de relajación de articulaciones y se busca amortiguar el impacto. | < 50 ms |
-| **Retirada por calor** | Sensor de temperatura en extremidad | Si temperatura > 60°C (superficie externa), se ordena a la articulación retirarse del objeto. | < 100 ms |
+| **Retirada por calor** | Sensor de temperatura en extremidad | Si temperatura superficial externa > 55°C, se ordena a la articulación retirarse del objeto. | < 100 ms |
 | **Protección por sobrecorriente** | Driver de motor (medición de corriente) | Si corriente > 15A (pico), se reduce el par del motor. Si persiste, se desactiva. | < 10 ms |
 | **Reflejo de equilibrio** | IMU (ángulo respecto al suelo) | Si el ángulo de inclinación supera el umbral (ej. 15°), se activan los actuadores de corrección en piernas y torso. | < 50 ms |
 
@@ -82,7 +85,7 @@ Los datos de posición se leen continuamente y se almacenan en un buffer circula
 
 | Función | Sensor | Acción autónoma |
 |---------|--------|-----------------|
-| **Temperatura** | DS18B20 (cada módulo) | Si T > 80°C: activar bomba de refrigeración. Si T > 100°C: reducir potencia motores. Si T > 120°C: apagar sistema (emergencia). |
+| **Temperatura** | DS18B20 (cada módulo) | Si T > 70°C: activar bomba de refrigeración local (opcional). Si T > 85°C: reducir potencia motores. Si T > 100°C: apagar articulación (emergencia). |
 | **Energía** | BQ76952 (monitor de batería) | Si batería principal < 15%: conmutar a secundaria, activar baliza. Si batería secundaria < 10%: entrar en modo ahorro (solo baliza). |
 | **Comunicación** | Watchdog interno (microcontrolador) | Si no se recibe comando del cerebro principal durante > 5 segundos: entrar en **modo fallback**. |
 
@@ -95,7 +98,7 @@ Los datos de posición se leen continuamente y se almacenan en un buffer circula
 **Secuencia de acciones:**
 
 1. **Reducción de velocidad:** CORPUS reduce su velocidad de movimiento a un 30% de la máxima.
-2. **Búsqueda de lugar seguro:** Utilizando el historial de posiciones (buffer) y los sensores de proximidad, CORPUS intenta llegar al último punto conocido como "seguro" (ej. su base de carga, o un punto registrado por el operador).
+2. **Búsqueda de lugar seguro:** Utilizando el historial de posiciones (buffer) y los sensores de proximidad (TOF simples o las cámaras estéreo compartidas), CORPUS intenta llegar al último punto conocido como "seguro" (ej. su base de carga, o un punto registrado por el operador).
 3. **Activación de baliza:** Envía un paquete de emergencia por LoRa (si está disponible) con su posición, estado de batería, y motivo de fallback.
 4. **Modo de bajo consumo:** Si no logra llegar a un lugar seguro después de 2 minutos, o si la batería está baja, se sienta (o se recuesta) y espera, manteniendo solo la baliza activa.
 5. **Reconexión:** Si recupera la señal, reanuda la operación normal.
@@ -157,7 +160,7 @@ El cerebro principal (IA externa o consciencia del paciente) envía **comandos d
 
 ## 10. Referencias
 
-- `update.md` (documento de mejoras de CORPUS, 15 de abril de 2026).
+- `update.md` (documento de mejoras de CORPUS, 16 de abril de 2026).
 - Kodiak Robotics: fallback system for autonomous trucks.
 - NUbots: falling detection and get-up planner.
 - NAO robot: Fall Manager.
@@ -171,4 +174,3 @@ El cerebro principal (IA externa o consciencia del paciente) envía **comandos d
 **Asistencia técnica:** DeepSeek (IA)  
 **Contacto:** eaguayo@migst.cl  
 **Licencia:** Copyright © 2026 Enrique Aguayo. Todos los derechos reservados. Este documento es parte de la documentación técnica de CORPUS. No se permite su uso comercial sin autorización expresa.
-
