@@ -1,9 +1,9 @@
-[![Licencia](https://img.shields.io/badge/Licencia-Copyright%20%28c%29%202026%20Enrique%20Aguayo-red)](LICENSE)
-[![Estado](https://img.shields.io/badge/Estado-Hip%C3%B3tesis%20en%20desarrollo-yellow)](https://github.com/enriqueherbertag-lgtm/Corpus)
-[![Update](https://img.shields.io/badge/Update-Integración_Piezoeléctricos-blue)](./update.md)
-[![Autonomía](https://img.shields.io/badge/Documentación-Autonomía_%28Inconsciente%29-blue)](./docs/control/autonomy-layer.md)
-[![English](https://img.shields.io/badge/English-README.en.md-blue)](./README.md)
-[![Asistencia IA](https://img.shields.io/badge/Asistencia%20IA-DeepSeek-brightgreen)](https://deepseek.com)
+[![Licencia](https://img.shields.io/badge/License-Copyright%20%28c%29%202026%20Enrique%20Aguayo-red)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Hypothesis%20under%20development-yellow)](https://github.com/enriqueherbertag-lgtm/Corpus)
+[![Update](https://img.shields.io/badge/Update-Piezoelectric_Integration-blue)](./update.md)
+[![Autonomy](https://img.shields.io/badge/Documentation-Autonomy_%28Unconscious%29-blue)](./docs/control/autonomy-layer.md)
+[![English](https://img.shields.io/badge/English-README.en.md-blue)](./README.en.md)
+[![AI Assistance](https://img.shields.io/badge/AI%20Assistance-DeepSeek-brightgreen)](https://deepseek.com)
 
 
 # CORPUS: An artificial body for AI or human brain
@@ -36,6 +36,11 @@ Unlike commercial robots, CORPUS requires no motor training. Its architecture al
 
 ## Main advantages
 
+- **No motor training required**: walks, grabs, and balances from the first moment.
+- **Autonomous energy**: captures energy from the environment and stores it in ultracapacitors and batteries.
+- **ENA integration**: allows a human to feel and control the body remotely.
+- **Universal platform**: works with AI or human brain without hardware changes.
+
 ## Control Architecture: The "Unconscious"
 
 CORPUS is not a robot that simply waits for orders. Its **autonomy layer** (or "unconscious") allows it to:
@@ -45,11 +50,6 @@ CORPUS is not a robot that simply waits for orders. Its **autonomy layer** (or "
 - **Act in safe mode** if it loses connection with its main brain (fallback).
 
 This layer runs on local microcontrollers (STM32) and inertial sensors (IMU), with no need for AI. The main brain (AI or human) only makes high-level decisions; the body already knows how to walk, grasp, and take care of itself.
-
-- **No motor training required**: walks, grabs, and balances from the first moment.
-- **Autonomous energy**: captures energy from the environment and stores it in ultracapacitors and batteries.
-- **ENA integration**: allows a human to feel and control the body remotely.
-- **Universal platform**: works with AI or human brain without hardware changes.
 
 ## Current status
 
