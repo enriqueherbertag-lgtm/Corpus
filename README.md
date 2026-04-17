@@ -45,8 +45,6 @@ CORPUS no es un robot que espera órdenes todo el tiempo. Su **capa de autonomí
 
 Esta capa opera en microcontroladores locales (STM32) y sensores inerciales (IMU), sin necesidad de IA. El cerebro principal (IA o humano) solo toma decisiones de alto nivel; el cuerpo ya sabe cómo caminar, agarrar y cuidarse solo.
 
- **Documentación técnica completa:** [`docs/control/autonomy-layer.md`](./docs/control/autonomy-layer.md)
-
 - **No requiere entrenamiento motor**: camina, agarra y mantiene el equilibrio desde el primer momento.
 - **Energía autónoma**: capta energía del entorno y almacena en ultracapacitores + baterías.
 - **Integración con ENA**: permite que un humano sienta y controle el cuerpo a distancia.
