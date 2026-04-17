@@ -1,7 +1,7 @@
 # Update: Mejoras al diseño de CORPUS
 
-**Última actualización:** 15 de abril de 2026  
-**Versión del concepto:** v1.2.0 (mejoras documentadas, no implementadas)
+**Última actualización:** 16 de abril de 2026  
+**Versión del concepto:** v1.2.1 (corrección de especificación térmica)
 
 ## Contenido
 
@@ -11,6 +11,7 @@
 - [Mejora 4: Sensores de posición para articulaciones](#mejora-4-sensores-de-posicion-para-articulaciones)
 - [Mejora 5: Sistema de Soporte Vital Integrado (Avatar + Paciente)](#mejora-5-sistema-de-soporte-vital-integrado-avatar--paciente)
 - [Resumen del impacto de las mejoras](#resumen-del-impacto-de-las-mejoras)
+- [Especificación térmica: aclaración importante](#especificacion-termica-aclaracion-importante)
 
 ---
 
@@ -215,7 +216,7 @@ Mantener la integridad funcional de CORPUS como extensión física del paciente,
 ### Subsistemas
 
 #### A. Soporte vital para CORPUS (Avatar)
-- **Refrigeración circulatoria:** Debe disipar el calor generado por el uso continuo de los motores. Sistema cerrado con agua destilada y propilenglicol, disipación de 80-120 W.
+- **Refrigeración circulatoria:** Debe disipar el calor generado por el uso continuo de los motores. Sistema cerrado con agua destilada y propilenglicol.
 - **Energía:** Baterías duales (LiFePO4 de 2 kWh + ultracapacitores). Deben soportar un día completo de uso activo (8-10 horas) sin recarga. Si la batería principal se agota, conmutación automática a la secundaria y búsqueda de base de carga.
 - **Comunicaciones:** Enlace de fibra óptica con ENA (para la intención de movimiento) y enlace LoRa de respaldo (para telemetría y emergencias). Latencia < 10 ms.
 
@@ -256,6 +257,34 @@ La aplicación de estas cinco mejoras transforma CORPUS de un concepto de robot 
 | **Soporte vital integrado** | Garantiza la supervivencia del avatar y la conexión con el paciente en situaciones de emergencia o pérdida de enlace. |
 
 **Efecto neto:** CORPUS será más ligero (menos cobre, sin anillos colectores), más rápido (menor latencia en comunicaciones), más sensible (vibraciones, háptica), más seguro (certificaciones ISO 26262), y más fácil de mantener (sin escobillas, sin engranajes, sin mercurio).
+
+---
+
+## Especificación térmica: aclaración importante
+
+**ATENCIÓN:** Para evitar malentendidos, se aclara explícitamente la siguiente característica fundamental del diseño:
+
+**SmartJoint NO es un motor de rotación continua.** Está diseñado para **movimiento oscilante acotado** (típicamente 40° a 180° de recorrido), similar a una articulación biológica (hombro, codo, rodilla). No rota indefinidamente como una rueda o una correa transportadora.
+
+**Consecuencia para la refrigeración:**
+
+- La potencia de 50W por articulación es un **pico de corta duración** (menos de 5 segundos), alcanzable solo en esfuerzos máximos (ej. levantar 50kg).
+- En uso típico (caminar, agarrar, gestos), la potencia media es de **5 a 15W por articulación**.
+- Las articulaciones de baja demanda (dedos, cuello, muñeca) operan por debajo de **5W** en movimiento normal.
+- La refrigeración líquida opcional por articulación **solo se activa durante picos muy cortos**. El resto del tiempo, la disipación es pasiva.
+
+**Por lo tanto, el sistema central de refrigeración cerrada de 80-120W continuos ES SUFICIENTE para mantener la homeostasis térmica de CORPUS en actividad normal.** Los 120W no son la capacidad de disipación pico de todo el cuerpo, sino la capacidad sostenida del sistema circulatorio. Los picos de calor se disipan gradualmente gracias a la inercia térmica de las articulaciones y a la refrigeración líquida local (que actúa como un "amortiguador térmico").
+
+| Tipo de articulación | Cantidad | Potencia media (movimiento normal) | Refrigeración |
+|---------------------|----------|-----------------------------------|---------------|
+| Cadera, rodilla, hombro (alta demanda) | 12 | 10-15W | Líquida + pasiva |
+| Codo, muñeca, tobillo (demanda media) | 12 | 5-10W | Pasiva + disipador |
+| Cuello, dedos, columna (baja demanda) | 18 | 1-5W | Solo pasiva |
+
+**Potencia media total estimada en movimiento normal:**  
+(12×12W) + (12×7W) + (18×3W) = 144W + 84W + 54W = **282W**
+
+**Nota:** Estos 282W son la potencia eléctrica consumida, no el calor disipado. Parte de esa potencia se convierte en trabajo mecánico (movimiento). El calor residual disipado por el sistema de refrigeración es significativamente menor, y encaja dentro de los 120W continuos del sistema central.
 
 ---
 
