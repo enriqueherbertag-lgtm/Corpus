@@ -73,6 +73,8 @@ CORPUS utiliza **SmartJoint**, un actuador de accionamiento directo (sin engrana
 | Frecuencia de control | 1 kHz |
 | Refrigeración | Líquida (opcional, hasta 50 W disipados) |
 
+*Nota: SmartJoint está optimizado para movimiento oscilante acotado (típicamente 40°-180°), no para rotación continua. Los valores de 50W y 200W son picos de corta duración (<5 segundos). En uso normal (caminar, agarrar), la potencia media es de 10-30W por articulación. El sistema de refrigeración de 80-120W continuos de CORPUS es suficiente. Ver `update.md` para detalles técnicos.*
+
 ## Esquema conceptual
 
 ![Esquema conceptual de SmartJoint](./docs/media/smartjoint-scheme.png)
