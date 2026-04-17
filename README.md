@@ -50,6 +50,36 @@ Esta capa opera en microcontroladores locales (STM32) y sensores inerciales (IMU
 - **Integración con ENA**: permite que un humano sienta y controle el cuerpo a distancia.
 - **Plataforma universal**: funciona con IA o con cerebro humano sin cambios en el hardware.
 
+## Articulaciones: SmartJoint
+
+CORPUS utiliza **SmartJoint**, un actuador de accionamiento directo (sin engranajes) diseñado específicamente para sus 42 grados de libertad. Cada articulación es un módulo autónomo que integra motor, sensor de posición absoluta, controlador local y comunicación de alta velocidad.
+
+## Especificaciones técnicas
+
+| Parámetro | Valor |
+|-----------|-------|
+| Diámetro | 60 mm |
+| Longitud | 80 mm |
+| Peso | 400-500 g |
+| Par máximo | 50 Nm (pico), 20 Nm (continuo) |
+| Velocidad máxima | 300 rpm |
+| Alimentación | 48V DC |
+| Consumo en reposo | 5 W |
+| Consumo en movimiento | 50-200 W |
+| Precisión de posición | ±0.1 grados |
+| Resolución del sensor | <0.075 grados |
+| Rango del sensor | 360° absoluto |
+| Comunicación | UART sobre fibra óptica o RS-485 |
+| Frecuencia de control | 1 kHz |
+| Refrigeración | Líquida (opcional, hasta 50 W disipados) |
+
+## Esquema conceptual
+
+![Esquema conceptual de SmartJoint](./docs/media/smartjoint-scheme.png)
+
+*Vista conceptual en corte. Componentes: canal de refrigeración líquida, rotor con imanes, estator con bobinados, salida de cables y sellos O-ring.*
+
+
 ## Estado actual
 
 - Concepto definido
