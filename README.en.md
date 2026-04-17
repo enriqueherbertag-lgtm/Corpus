@@ -1,10 +1,12 @@
-# CORPUS: An artificial body for AI or human brain
+[![Licencia](https://img.shields.io/badge/Licencia-Copyright%20%28c%29%202026%20Enrique%20Aguayo-red)](LICENSE)
+[![Estado](https://img.shields.io/badge/Estado-Hip%C3%B3tesis%20en%20desarrollo-yellow)](https://github.com/enriqueherbertag-lgtm/Corpus)
+[![Update](https://img.shields.io/badge/Update-Integración_Piezoeléctricos-blue)](./update.md)
+[![Autonomía](https://img.shields.io/badge/Documentación-Autonomía_%28Inconsciente%29-blue)](./docs/control/autonomy-layer.md)
+[![English](https://img.shields.io/badge/English-README.en.md-blue)](./README.md)
+[![Asistencia IA](https://img.shields.io/badge/Asistencia%20IA-DeepSeek-brightgreen)](https://deepseek.com)
 
-[![License](https://img.shields.io/badge/License-Copyright%20%28c%29%202026%20Enrique%20Aguayo-red)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Hypothesis%20under%20development-yellow)](https://github.com/enriqueherbertag-lgtm/Corpus)
-[![Update](https://img.shields.io/badge/Update-Piezoelectric_Integration-blue)](./update.md)
-[![Spanish](https://img.shields.io/badge/Spanish-README.md-blue)](./README.md)
-[![AI Assistance](https://img.shields.io/badge/AI%20Assistance-DeepSeek-brightgreen)](https://deepseek.com)
+
+# CORPUS: An artificial body for AI or human brain
 
 Current robots are machines designed for specific tasks. They are not made to coexist with humans, nor to adapt to extreme environments, nor to naturally host an artificial intelligence.
 
@@ -33,6 +35,16 @@ Unlike commercial robots, CORPUS requires no motor training. Its architecture al
 - **Telepresence** (operating a remote body while feeling what it feels).
 
 ## Main advantages
+
+## Control Architecture: The "Unconscious"
+
+CORPUS is not a robot that simply waits for orders. Its **autonomy layer** (or "unconscious") allows it to:
+
+- **Maintain balance** and protect itself from falls (reflexes).
+- **Manage its temperature and energy** (homeostasis).
+- **Act in safe mode** if it loses connection with its main brain (fallback).
+
+This layer runs on local microcontrollers (STM32) and inertial sensors (IMU), with no need for AI. The main brain (AI or human) only makes high-level decisions; the body already knows how to walk, grasp, and take care of itself.
 
 - **No motor training required**: walks, grabs, and balances from the first moment.
 - **Autonomous energy**: captures energy from the environment and stores it in ultracapacitors and batteries.
