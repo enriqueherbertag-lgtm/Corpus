@@ -5,6 +5,7 @@
 [![English](https://img.shields.io/badge/English-README.en.md-blue)](./README.en.md)
 [![Asistencia IA](https://img.shields.io/badge/Asistencia%20IA-DeepSeek-brightgreen)](https://deepseek.com)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19362083.svg)](https://doi.org/10.5281/zenodo.19362083)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19362083.svg)](https://doi.org/10.5281/zenodo.19362083)
 
 # CORPUS: Un cuerpo artificial para IA o cerebro humano
 
